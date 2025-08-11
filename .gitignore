@@ -1,0 +1,11 @@
+# Ignore media files
+/media/
+
+# Ignore Python cache
+__pycache__/
+
+# Ignore virtual environment
+venv/
+
+# Ignore database
+*.sqlite3
