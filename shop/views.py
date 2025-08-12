@@ -6,7 +6,7 @@ def index(request):
     return render(request, 'shop/shophome.html')
 
 def about_us(request):
-    pass
+    return render(request, 'shop/about.html')
 
 def contact(request):
     pass
