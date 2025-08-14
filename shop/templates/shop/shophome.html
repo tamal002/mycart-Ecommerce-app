@@ -19,9 +19,10 @@
       <img src="{{product.image.url}}" class="card-img-top" alt="..." />
       <div class="card-body">
         <h5 class="card-title">{{product.product_name}}</h5>
-        <p class="card-text">
+        <button id="{{product.product_id}}" class="cart">Add to Cart</button>
+        {% comment %} <p class="card-text">
           {{product.description}}
-        </p>
+        </p> {% endcomment %}
       </div>
     </div>
 
@@ -33,5 +34,30 @@
         
   {% endfor %} 
   </div>
+  {% endblock %}
+
+  {% block js %}
+  
+  <script>
+    
+    if(localStorage.getItem("cart") == null){
+      var cart = {};
+    }
+    else {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+
+    $('.cart').click(function(){
+      let product_id = this.id.toString();
+      if(cart[product_id] == undefined){
+        cart[product_id] = 1;
+      }
+      else cart[product_id] += 1;
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      console.log(cart);
+    });
+  </script>
+  
   {% endblock %}
     
