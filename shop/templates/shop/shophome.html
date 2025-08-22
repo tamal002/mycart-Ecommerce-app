@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="{% static 'shop/css/shophomestyle.css'%}" />
 {% endblock %} 
 
+
+
 {% block content%}
 <div id="products">
   {% for product in product_list %} 
@@ -45,6 +47,8 @@
     }
     else {
       cart = JSON.parse(localStorage.getItem("cart"));
+      let cart_area = document.querySelector("#cart");
+      cart_area.textContent = Object.keys(cart).length;
     }
 
     $('.cart').click(function(){
@@ -56,7 +60,11 @@
 
       localStorage.setItem("cart", JSON.stringify(cart));
       console.log(cart);
+      let cart_area = document.querySelector("#cart");
+      cart_area.textContent = Object.keys(cart).length;
     });
+
+    
   </script>
   
   {% endblock %}
