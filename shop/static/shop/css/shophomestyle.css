@@ -16,6 +16,8 @@ body {
   width: 100%;
 }
 
+/*
+
 #products{
     height: auto;
     width: 100%;
@@ -41,7 +43,7 @@ body {
 }
 
 .row::-webkit-scrollbar {
-  display: none; /* optional: hide scrollbar for cleaner look */
+  display: none; 
 }
 
 .card{
@@ -74,3 +76,6 @@ button{
   padding: 2%;
   border-radius: 5px;
 }
+
+
+*/

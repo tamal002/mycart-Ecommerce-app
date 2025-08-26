@@ -4,11 +4,15 @@ from shop.models import Product
 
 def index(request):
     products = Product.objects.all()
-    params = {
-        'product_list': products,
-        'products_per_row': 5,
+    categories = {};
+    for product in products:
+        if product.category not in categories:
+            categories[product.category] = []
+        categories[product.category].append(product)
+    context = {
+        'category_list': categories 
     }
-    return render(request, 'shop/shophome.html', params)
+    return render(request, 'shop/shophome.html', context)
 
 def about_us(request):
     return render(request, 'shop/about.html')

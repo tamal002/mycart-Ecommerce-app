@@ -2,16 +2,154 @@
 
 {% load static %} 
 
-{% block title %}Shop | Home{%endblock %} 
+# title block
+{% block title %}<title>Shop | Home</title>{%endblock %} 
 
+
+# style sheet block
 {% block style_sheet %}
+
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <link rel="stylesheet" href="{% static 'shop/css/shophomestyle.css'%}" />
+
+<style>
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  } 
+
+  html,
+  body {
+    height:100%;
+    width: 100%;
+  }
+
+  #main {
+    height: auto;
+    width: 100%;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  }
+
+  .row-slider {
+    width: 90%;
+    margin: 30px auto;
+    height: 260px;
+    /* background: #f9f9f9; */
+    padding: 10px;
+    box-sizing: border-box;
+    position: relative;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+  }
+
+  .row-slider .swiper-slide {
+    width: 180px;
+    height: 180px;
+    background: #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .swiper-slide{
+    height: 180px;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .btns{
+    display: flex;
+    min-height: 10%;
+    margin-bottom: -50px;
+    padding: 10px 10px 10px 10px;
+    gap: 2px;
+  }
+
+  .swiper-button-prev{
+    margin-left: -15x;
+    cursor: pointer;
+  }
+
+  .swiper-button-next{
+    margin-right: -10px;
+    cursor: pointer;
+  }
+
+  .swiper-wrapper  .btns button{
+    background-color: rgb(40, 40, 231);
+    color: white;
+    border-radius: 7px;
+    padding: 5px 2px;
+    margin-bottom: -25px;
+  }
+
+  .swiper-wrapper  .btns button:hover{
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(97, 136, 244, 0.7);
+    transform: translateY(-2px);
+  }
+
+
+  .category{
+    display: block;
+    height: 40px;
+    width: 89%;
+    background-color: rgb(61, 122, 235);
+    color: white;
+    border-radius: 5px;
+    margin-left: 70px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+  }
+  
+  .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* or contain, depending on your need */
+    border-radius: 10px; /* optional: matches slider's rounded corners */
+
+}
+
+</style>
+
 {% endblock %} 
 
 
 
+# content block
 {% block content%}
-<div id="products">
+  
+
+  {% for category, list in category_list.items %}
+    <h6 class="category">{{category}}</h6>
+    <div class="swiper row-slider">
+      <div class="swiper-wrapper">
+        {% for product in list %}
+          <div class="swiper-slide"><img src="{{product.image.url}}" alt="product-image"> <br> <span class="btns"><button>add cart</button> <button>view product</button></span></div>
+        {% endfor %}
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  {% endfor %}
+
+{% endblock %}
+
+{%comment%}
+
+ <div id="products">
   {% for product in product_list %} 
   {% if forloop.counter0|divisibleby:products_per_row %}
   <div class="row">
@@ -22,12 +160,11 @@
       <div class="card-body">
         <h5 class="card-title">{{product.product_name}}</h5>
         <button id="{{product.product_id}}" class="cart">Add to Cart</button>
-        {% comment %} <p class="card-text">
+         <p class="card-text">
           {{product.description}}
-        </p> {% endcomment %}
+        </p> 
       </div>
-    </div>
-
+    </div> 
 
     {% if forloop.counter|divisibleby:products_per_row %}
     </div>
@@ -35,13 +172,29 @@
     {% empty %} <p>No products available.</p>
         
   {% endfor %} 
-  </div>
-  {% endblock %}
-
-  {% block js %}
+  </div> 
   
+  {% endcomment %}
+
+
+  # js block
+  {% block js %}
+
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
   <script>
-    
+    document.querySelectorAll('.row-slider').forEach((slider, index) => {
+  new Swiper(slider, {
+    slidesPerView: 5,
+    spaceBetween: 40,
+    loop: true,
+    navigation: {
+      nextEl: slider.querySelector('.swiper-button-next'),
+      prevEl: slider.querySelector('.swiper-button-prev'),
+    }
+  });
+});
+  </script>
+  <script>
     if(localStorage.getItem("cart") == null){
       var cart = {};
     }
@@ -66,6 +219,5 @@
 
     
   </script>
-  
   {% endblock %}
     
