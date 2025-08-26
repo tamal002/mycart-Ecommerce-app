@@ -26,8 +26,10 @@ def tracker(request):
 def search(request):
     return render(request, 'shop/search.html')
 
-def product_view(request):
-    return render(request, 'shop/productview.html')
+def product_view(request, id):
+    # fetching the product details using the product-id
+    product = Product.objects.get(product_id=id)
+    return render(request, 'shop/productview.html', {"product": product})
 
 def ckeckout(request):
     return render(request, 'shop/checkout.html')

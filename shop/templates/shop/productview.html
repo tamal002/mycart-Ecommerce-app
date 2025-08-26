@@ -1,4 +1,57 @@
-{% extends 'shop/base.html' %}
-
+{% extends 'shop/base.html' %} 
 {% block title %}product-view page{% endblock %}
-{% block content%} this is product-view page {% endblock %}
+
+
+{% block content%}
+
+<div class="container">
+  <div class="images">
+    <img
+      src="{{product.image.url}}" alt="product-image"
+    />
+  </div>
+  <div class="slideshow-buttons">
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="three"></div>
+    <div class="four"></div>
+  </div>
+  
+  {% comment %} 
+    <p class="pick">choose size</p>
+    <div class="sizes">
+    <div class="size">5</div>
+    <div class="size">6</div>
+    <div class="size">7</div>
+    <div class="size">8</div>
+    <div class="size">9</div>
+    <div class="size">10</div>
+    <div class="size">11</div>
+    <div class="size">12</div>
+  </div> {% endcomment %}
+  <div class="product">
+    <p>{{product.sub_category}}</p>
+    <h1>{{product.product_name}}</h1>
+    <h2 id="price">{{product.price}}</h2>
+    <p class="desc">
+      {{product.description}}
+    </p>
+    <div class="buttons">
+      <button class="add">Add to Cart</button>
+      <button class="like"><span>♥</span></button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>made by <a href="https://codepen.io/juliepark"> julie</a> ♡</p>
+</footer>
+
+<script>
+
+    let price = document.querySelector("#price");
+    price.textContent =  "INR " + new Intl.NumberFormat('en-IN').format(Number(price.textContent));
+
+</script>
+
+{% endblock %}

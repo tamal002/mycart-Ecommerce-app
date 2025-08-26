@@ -3,7 +3,7 @@
 {% load static %} 
 
 # title block
-{% block title %}<title>Shop | Home</title>{%endblock %} 
+{% block title %}Shop | Home{%endblock %} 
 
 
 # style sheet block
@@ -137,7 +137,7 @@
     <div class="swiper row-slider">
       <div class="swiper-wrapper">
         {% for product in list %}
-          <div class="swiper-slide"><img src="{{product.image.url}}" alt="product-image"> <br> <span class="btns"><button>add cart</button> <button>view product</button></span></div>
+          <div class="swiper-slide"><img src="{{product.image.url}}" alt="product-image"> <br> <span class="btns"><button>add cart</button> <button><a href="{% url 'product_view' product.product_id %}">view product</a></button></span></div>
         {% endfor %}
       </div>
       <div class="swiper-button-prev"></div>
@@ -153,10 +153,7 @@
   {% for product in product_list %} 
   {% if forloop.counter0|divisibleby:products_per_row %}
   <div class="row">
-    {% endif %}
-
-    <div class="card" style="width: 18rem">
-      <img src="{{product.image.url}}" class="card-img-top" alt="..." />
+@@ -22,26 +160,41 @@
       <div class="card-body">
         <h5 class="card-title">{{product.product_name}}</h5>
         <button id="{{product.product_id}}" class="cart">Add to Cart</button>
@@ -166,11 +163,12 @@
       </div>
     </div> 
 
+
     {% if forloop.counter|divisibleby:products_per_row %}
     </div>
     {% endif %}
     {% empty %} <p>No products available.</p>
-        
+
   {% endfor %} 
   </div> 
   
@@ -195,29 +193,11 @@
 });
   </script>
   <script>
+
     if(localStorage.getItem("cart") == null){
       var cart = {};
     }
-    else {
-      cart = JSON.parse(localStorage.getItem("cart"));
-      let cart_area = document.querySelector("#cart");
-      cart_area.textContent = Object.keys(cart).length;
-    }
-
-    $('.cart').click(function(){
-      let product_id = this.id.toString();
-      if(cart[product_id] == undefined){
-        cart[product_id] = 1;
-      }
-      else cart[product_id] += 1;
-
-      localStorage.setItem("cart", JSON.stringify(cart));
-      console.log(cart);
-      let cart_area = document.querySelector("#cart");
-      cart_area.textContent = Object.keys(cart).length;
-    });
-
     
   </script>
+
   {% endblock %}
-    
