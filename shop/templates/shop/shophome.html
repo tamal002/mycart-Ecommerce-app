@@ -87,15 +87,15 @@
   .swiper-wrapper  .btns button{
     background-color: rgb(40, 40, 231);
     color: white;
-    border-radius: 7px;
+    border: 1px blue;
+    border-radius: 8px;
     padding: 5px 2px;
     margin-bottom: -25px;
   }
 
   .swiper-wrapper  .btns button:hover{
     cursor: pointer;
-    box-shadow: 0 0 20px rgba(97, 136, 244, 0.7);
-    transform: translateY(-2px);
+    background-color: rgb(13, 13, 67);
   }
 
 
@@ -147,32 +147,6 @@
 
 {% endblock %}
 
-{%comment%}
-
- <div id="products">
-  {% for product in product_list %} 
-  {% if forloop.counter0|divisibleby:products_per_row %}
-  <div class="row">
-@@ -22,26 +160,41 @@
-      <div class="card-body">
-        <h5 class="card-title">{{product.product_name}}</h5>
-        <button id="{{product.product_id}}" class="cart">Add to Cart</button>
-         <p class="card-text">
-          {{product.description}}
-        </p> 
-      </div>
-    </div> 
-
-
-    {% if forloop.counter|divisibleby:products_per_row %}
-    </div>
-    {% endif %}
-    {% empty %} <p>No products available.</p>
-
-  {% endfor %} 
-  </div> 
-  
-  {% endcomment %}
 
 
   # js block
