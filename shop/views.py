@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from shop.models import Product
+from shop.models import Enquiry
 # Create your views here.
 
 def index(request):
@@ -18,6 +19,13 @@ def about_us(request):
     return render(request, 'shop/about.html')
 
 def contact(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        phone = request.POST.get("number")
+        query = request.POST.get("message")
+        new_qnuery = Enquiry.objects.create(name=name, email=email, phone=phone, query=query)
+        return redirect('contact')
     return render(request, 'shop/contact.html')
 
 def tracker(request):
