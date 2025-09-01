@@ -1,0 +1,86 @@
+{% extends "shop/base.html" %} 
+
+{% block title %}My cart{% endblock %} 
+
+{% block style_sheet %}
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+  }
+  #main {
+    height: 100%;
+    width: 100%;
+  }
+  #cart{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #list{
+    height: 80%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #card{
+    min-height: 150px;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    border: 1px rgb(63, 63, 63) solid;
+    border-radius: 10px;
+  }
+  #image{
+    height: 90%;
+    width: 30%;
+  }
+  #name{
+    height: 100%;
+    width: 40%;
+    margin-right: 20px;
+    padding: 5px 5px;
+    font-size: 10px;
+  }
+  #remove-btn{
+    height: 40px;
+    width: 100px;
+    border: 1px blue solid;
+    border-radius: 5px;
+    background-color: rgb(48, 117, 237);
+    color: white;
+  }
+  #remove-btn:hover{
+    background-color: blue;
+  }
+</style>
+{% endblock %} 
+
+{% block content %} 
+
+<div id="cart">
+    <div id="list">
+        <div id="card">
+            <div id="image"><img src="" alt="product_image"></div>
+            <div id="name"><h4>product name</h4></div>
+            <button id="remove-btn">Remove</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

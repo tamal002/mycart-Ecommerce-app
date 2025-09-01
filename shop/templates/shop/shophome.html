@@ -137,7 +137,7 @@
     <div class="swiper row-slider">
       <div class="swiper-wrapper">
         {% for product in list %}
-          <div class="swiper-slide"><img src="{{product.image.url}}" alt="product-image"> <br> <span class="btns"><button>add cart</button> <button><a href="{% url 'product_view' product.product_id %}">view product</a></button></span></div>
+          <div class="swiper-slide"><img src="{{product.image.url}}" alt="product-image"> <br> <span class="btns"><button id="{{product.product_id}}" class="add-cart">add cart</button> <button><a href="{% url 'product_view' product.product_id %}">view product</a></button></span></div>
         {% endfor %}
       </div>
       <div class="swiper-button-prev"></div>
@@ -168,9 +168,17 @@
   </script>
   <script>
 
-    if(localStorage.getItem("cart") == null){
-      var cart = {};
+    if(localStorage.getItem("cart") === null){
+      let items = {}
+      localStorage.setItem("cart", JSON.stringify(items))
     }
+    $('.add-cart').on("click", (event) => {
+      let clicked_on = event.target.id;
+      let items = JSON.parse(localStorage.getItem("cart"))
+      if(items[clicked_on] === undefined) items[clicked_on] = 1;
+      else items[clicked_on] += 1
+      localStorage.setItem("cart", JSON.stringify(items))
+});
     
   </script>
 

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .registration-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 600px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .registration-card:hover {
+            transform: translateY(-5px);
+        }
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+            border-color: #86b7fe;
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+        .form-floating > label {
+            color: #6c757d;
+        }
+        .invalid-feedback {
+            display: none;
+            width: 100%;
+            margin-top: .25rem;
+            font-size: .875em;
+            color: #dc3545;
+        }
+        .was-validated .form-control:invalid, .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+        .was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
+            box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);
+        }
+        .was-validated .form-control:invalid ~ .invalid-feedback,
+        .form-control.is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="registration-card">
+                    <h2 class="text-center mb-4 fw-bold">Create Your Account</h2>
+                    <!-- No-validate prevents browser's default validation to show custom messages -->
+                    <form id="registrationForm" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <!-- First Name -->
+                            <div class="col-sm-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="firstName" placeholder="John" required>
+                                    <label for="firstName">First Name</label>
+                                    <div class="invalid-feedback">
+                                        Please enter your first name.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Last Name -->
+                            <div class="col-sm-6">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+                                    <label for="lastName">Last Name</label>
+                                    <div class="invalid-feedback">
+                                        Please enter your last name.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Username -->
+                            <div class="col-12">
+                                 <div class="form-floating">
+                                    <input type="text" class="form-control" id="username" placeholder="Username" required>
+                                    <label for="username">Username</label>
+                                     <div class="invalid-feedback">
+                                        Please choose a username.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Email -->
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                                    <label for="email">Email address</label>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid email address.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Password -->
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="password" placeholder="Password" required minlength="8">
+                                    <label for="password">Password</label>
+                                    <div class="invalid-feedback" id="passwordFeedback">
+                                        Password must be at least 8 characters long.
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Confirm Password -->
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <div class="invalid-feedback" id="confirmPasswordFeedback">
+                                        Passwords do not match.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button class="btn btn-primary w-100 py-3 mt-4" type="submit">Register</button>
+                    </form>
+                     <p class="text-center text-muted mt-4">
+                        Already have an account? <a href={% url 'login' %} class="text-decoration-none">Log in</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        (function () {
+            'use strict';
+
+            const form = document.getElementById('registrationForm');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const confirmPasswordFeedback = document.getElementById('confirmPasswordFeedback');
+
+            form.addEventListener('submit', function (event) {
+                // Add Bootstrap's was-validated class to the form to show feedback
+                form.classList.add('was-validated');
+
+                // Check if passwords match
+                if (password.value !== confirmPassword.value) {
+                    confirmPassword.classList.add('is-invalid');
+                    confirmPassword.setCustomValidity("Invalid"); // Mark field as invalid for bootstrap
+                    confirmPasswordFeedback.textContent = 'Passwords do not match.';
+                } else {
+                    confirmPassword.classList.remove('is-invalid');
+                    confirmPassword.setCustomValidity(""); // Mark field as valid
+                }
+
+                // If form is not valid, prevent submission
+                if (!form.checkValidity() || password.value !== confirmPassword.value) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    // Handle successful form submission here
+                    // For demo, we just log it. In a real app, you'd send data to a server.
+                    event.preventDefault(); // Prevent actual submission for this demo
+                    alert('Registration successful!');
+                    console.log('Form submitted successfully');
+                }
+            }, false);
+
+            // Real-time validation for confirm password field
+            confirmPassword.addEventListener('input', function() {
+                if (password.value !== confirmPassword.value) {
+                    confirmPassword.classList.add('is-invalid');
+                    confirmPassword.setCustomValidity("Invalid");
+                    confirmPasswordFeedback.textContent = 'Passwords do not match.';
+                } else {
+                    confirmPassword.classList.remove('is-invalid');
+                    confirmPassword.setCustomValidity("");
+                }
+            });
+
+             // Real-time validation for password field
+            password.addEventListener('input', function() {
+                 if (password.value.length < 8) {
+                    password.classList.add('is-invalid');
+                    password.setCustomValidity("Invalid");
+                } else {
+                    password.classList.remove('is-invalid');
+                    password.setCustomValidity("");
+                }
+                // Also re-validate confirm password field
+                if (confirmPassword.value && password.value !== confirmPassword.value) {
+                    confirmPassword.classList.add('is-invalid');
+                    confirmPassword.setCustomValidity("Invalid");
+                } else if(confirmPassword.value) {
+                     confirmPassword.classList.remove('is-invalid');
+                     confirmPassword.setCustomValidity("");
+                }
+            });
+
+        })();
+    </script>
+</body>
+</html>

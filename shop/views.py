@@ -3,6 +3,7 @@ from shop.models import Product
 from shop.models import Enquiry
 # Create your views here.
 
+
 def index(request):
     products = Product.objects.all()
     categories = {};
@@ -38,6 +39,10 @@ def product_view(request, id):
     # fetching the product details using the product-id
     product = Product.objects.get(product_id=id)
     return render(request, 'shop/productview.html', {"product": product})
+
+def cart(request):
+    return render(request, 'shop/cartView.html')
+
 
 def ckeckout(request):
     return render(request, 'shop/checkout.html')

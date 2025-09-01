@@ -3,5 +3,9 @@ from django.http import HttpResponse
 
 
 
-def index(request):
-    return HttpResponse("Welcome to the Blog!")
+def login(request):
+    return render(request, 'accounts/login.html')
+
+
+def register(request):
+    return render(request, 'accounts/register.html')

@@ -63,7 +63,7 @@
       {{product.description}}
     </p>
     <div class="buttons">
-      <button class="add">Add to Cart</button>
+      <button id="{{product.product_id}}" class="add">Add to Cart</button>
       <button class="like"><span>♥</span></button>
     </div>
   </div>
@@ -74,6 +74,20 @@
 
     let price = document.querySelector("#price");
     price.textContent =  "INR " + new Intl.NumberFormat('en-IN').format(Number(price.textContent));
+
+    if(localStorage.getItem("cart") === null){
+      let items = {}
+      localStorage.setItem("cart", JSON.stringify(items))
+    }
+
+    let item = document.querySelectorAll(".add")[0];
+    item.addEventListener("click", (event) => {
+      let clicked_on = item.id;
+      let items = JSON.parse(localStorage.getItem("cart"))
+      if(items[clicked_on] === undefined) items[clicked_on] = 1;
+      else items[clicked_on] += 1
+      localStorage.setItem("cart", JSON.stringify(items))
+    })
 
 </script>
 
