@@ -24,7 +24,7 @@ app_name = "mycart"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
+    path('', views.home, name='home'),
     path('shop/', include('shop.urls')),
     path('blog/', include('blog.urls')),
     path('login/', include('accounts.urls')),

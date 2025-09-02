@@ -53,6 +53,7 @@
                 <a class="nav-link" href="/shop/contact">Contact us</a>
               </li>
             </ul>
+            {% if user.is_authenticated %}
             <form class="d-flex" role="search">
               <input
                 class="form-control me-2"
@@ -63,7 +64,12 @@
               <button class="btn btn-outline-success" type="submit">
                 Search
               </button>
+              <a href="{% url "accounts:logout" %}" class="btn btn-outline-success">Logout</a>
             </form>
+            {% else %}
+              <a href="{% url "accounts:login" %}"class="btn btn-outline-success">Login</a>
+              <a href="{% url "accounts:register" %}" class="btn btn-outline-success">Register</a>
+            {% endif %}
           </div>
         </div>
       </nav>

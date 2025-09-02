@@ -1,12 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 
 
 # login logic
-
 def login_view(request):
     if request.method == 'POST':
         username = request.POST.get("username")
@@ -26,9 +25,6 @@ def login_view(request):
 
 
 # register logic
-
-
-
 def register_view(request):
     User = get_user_model()
     if request.method == "POST":
@@ -61,3 +57,9 @@ def register_view(request):
         return redirect("accounts:login")
 
     return render(request, 'accounts/register.html')
+
+
+# user logout handler
+def user_logout(request):
+    logout(request)
+    return redirect("accounts:login")
