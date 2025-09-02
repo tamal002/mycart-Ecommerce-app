@@ -1,0 +1,117 @@
+[
+{
+  "model": "shop.product",
+  "pk": 1,
+  "fields": {
+    "product_name": "Motorola edge 50 new (blue)",
+    "image": "shop/images/moto-edge-50neo.jpg",
+    "category": "Gadgets",
+    "sub_category": "mobile phones",
+    "description": "(PANTONE Nautical Blue, 256 GB)  (8 GB RAM)\r\n\r\nGuaranteed Durablity with MIL-810H Miliary Graded Certified\r\nCertified to MIL-STD-810H by SGS, this device meets the U.S. Department of Defense's tough durability standards. It's built to endure shocks, vibrations, pressure, dust, extreme temperatures, and salt fog\r\n\r\n\r\nMinimal Design with PANTONE Colours\r\nDesigned in conjunction with Pantone Color Institute, the world’s authority on color, Motorola Edge 50 Neo is available in four specially curated options: PANTONE Poinciana, PANTONE Grisaille, PANTONE Nautical Blue, and PANTONE Latte.",
+    "price": 19999,
+    "launched_date": "2025-08-12"
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 2,
+  "fields": {
+    "product_name": "Fastrack watch (men)",
+    "image": "shop/images/fastrack-men-watch.jpg",
+    "category": "Gadgets",
+    "sub_category": "watch",
+    "description": "Best good looking wrist watch for men.\r\nTees Analog Watch - For Men & Women NT38004PP06W",
+    "price": 389,
+    "launched_date": "2025-08-12"
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 3,
+  "fields": {
+    "product_name": "Asus vivobook 15",
+    "image": "shop/images/asus-laptop.jpg",
+    "category": "Gadgets",
+    "sub_category": "laptop",
+    "description": "Intel Core i3 13th Gen 1315U - (8 GB/512 GB SSD/Windows 11 Home) X1504VA-NJ320WS Thin and Light Laptop  (15.6 Inch, Cool Silver, 1.70 Kg, With MS Office)\r\n\r\nASUS Vivobook 15 is a fashion-forward, lightweight laptop driven by up to 12th Gen Intel U-Series processors, speedy memory, and WiFi 6E. It has a stunning FHD screen, rapid charging, immersive Dirac audio, and a satisfying ErgoSense keyboard. With a privacy webcam cover, antimicrobial treatment, AI noise cancellation, and military-grade toughness, it's designed for day-to-day productivity, crisp video calls, and safe use at home, school, or on the move.",
+    "price": 33990,
+    "launched_date": "2025-08-12"
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 4,
+  "fields": {
+    "product_name": "Gear Rucksack",
+    "image": "shop/images/rucksack.webp",
+    "category": "Bags",
+    "sub_category": "travelling rucksack",
+    "description": "Alphamount 45 Rucksack - 50 L  (Blue)",
+    "price": 799,
+    "launched_date": "2025-08-11"
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 5,
+  "fields": {
+    "product_name": "iPhone 16 pro Max (White Titanium, 256 GB)",
+    "image": "shop/images/iphone-16-promax.webp",
+    "category": "Gadgets",
+    "sub_category": "mobile phones",
+    "description": "iPhone 16 Pro Max. Built for Apple Intelligence. Featuring a stunning titanium design. Camera Control. 4K 120 fps Dolby Vision. And A18 Pro chip.",
+    "price": 131900,
+    "launched_date": "2025-08-12"
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 6,
+  "fields": {
+    "product_name": "Ray-Ban Sunglass",
+    "image": "shop/images/sunglass_Bl12l4U.webp",
+    "category": "accessories",
+    "sub_category": "sunglass",
+    "description": "UV Protection Round Sunglasses (58)  (For Men, Green)",
+    "price": 6759,
+    "launched_date": "2025-08-12"
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 7,
+  "fields": {
+    "product_name": "Apple iPad Air 11",
+    "image": "shop/images/ipad.jpg",
+    "category": "Gadgets",
+    "sub_category": "tablet",
+    "description": "Apple iPad Air 11″ with M3 chip: Built for Apple Intelligence, Liquid Retina Display, 128GB, 12MP Front/Back Camera, Wi-Fi 6E, Touch ID, All-Day Battery Life — Space Gray",
+    "price": 58097,
+    "launched_date": "2025-08-26"
+  }
+},
+{
+  "model": "shop.product",
+  "pk": 8,
+  "fields": {
+    "product_name": "Automatic Rice Cooke",
+    "image": "shop/images/rice-cooker.jpg",
+    "category": "Gadgets",
+    "sub_category": "kitchen appliances",
+    "description": "Instant Pot 321 Duo 3 QT (2.6L), SS304 Stainless Steel Inner Pot, 7-in-1 Electric Pressure Cooker, Slow Cooker, Rice Cooker, Steamer, Saute, Yogurt Maker and Keep Warmer, Automatic Rice Cooker",
+    "price": 9127,
+    "launched_date": "2025-08-26"
+  }
+},
+{
+  "model": "shop.enquiry",
+  "pk": 1,
+  "fields": {
+    "name": "Tamal saha",
+    "email": "sahatamal66@gmail.com",
+    "phone": 9332312407,
+    "query": "hey, please do fast..you don't have all the day !",
+    "created_at": "2025-08-30T07:59:07.402Z"
+  }
+}
+]

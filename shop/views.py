@@ -26,7 +26,7 @@ def contact(request):
         phone = request.POST.get("number")
         query = request.POST.get("message")
         new_qnuery = Enquiry.objects.create(name=name, email=email, phone=phone, query=query)
-        return redirect('contact')
+        return redirect('shop:contact')
     return render(request, 'shop/contact.html')
 
 def tracker(request):

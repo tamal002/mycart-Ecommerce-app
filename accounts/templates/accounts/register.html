@@ -75,12 +75,13 @@
                 <div class="registration-card">
                     <h2 class="text-center mb-4 fw-bold">Create Your Account</h2>
                     <!-- No-validate prevents browser's default validation to show custom messages -->
-                    <form id="registrationForm" class="needs-validation" novalidate>
+                    <form id="registrationForm" class="needs-validation" action={% url 'accounts:register' %} novalidate method='POST'>
+                        {% csrf_token %}
                         <div class="row g-3">
                             <!-- First Name -->
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="firstName" placeholder="John" required>
+                                    <input type="text" class="form-control" name="first_name" id="firstName" placeholder="John" required>
                                     <label for="firstName">First Name</label>
                                     <div class="invalid-feedback">
                                         Please enter your first name.
@@ -90,7 +91,7 @@
                             <!-- Last Name -->
                             <div class="col-sm-6">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="lastName" placeholder="Doe" required>
+                                    <input type="text" class="form-control" name="last_name" id="lastName" placeholder="Doe" required>
                                     <label for="lastName">Last Name</label>
                                     <div class="invalid-feedback">
                                         Please enter your last name.
@@ -100,7 +101,7 @@
                             <!-- Username -->
                             <div class="col-12">
                                  <div class="form-floating">
-                                    <input type="text" class="form-control" id="username" placeholder="Username" required>
+                                    <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
                                     <label for="username">Username</label>
                                      <div class="invalid-feedback">
                                         Please choose a username.
@@ -110,7 +111,7 @@
                             <!-- Email -->
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
                                     <label for="email">Email address</label>
                                     <div class="invalid-feedback">
                                         Please enter a valid email address.
@@ -120,7 +121,7 @@
                             <!-- Password -->
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="password" placeholder="Password" required minlength="8">
+                                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required minlength="8">
                                     <label for="password">Password</label>
                                     <div class="invalid-feedback" id="passwordFeedback">
                                         Password must be at least 8 characters long.
@@ -130,7 +131,7 @@
                             <!-- Confirm Password -->
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
+                                    <input type="password" class="form-control" name="confirm_password" id="confirmPassword" placeholder="Confirm Password" required>
                                     <label for="confirmPassword">Confirm Password</label>
                                     <div class="invalid-feedback" id="confirmPasswordFeedback">
                                         Passwords do not match.
@@ -143,7 +144,7 @@
                         <button class="btn btn-primary w-100 py-3 mt-4" type="submit">Register</button>
                     </form>
                      <p class="text-center text-muted mt-4">
-                        Already have an account? <a href={% url 'login' %} class="text-decoration-none">Log in</a>
+                        Already have an account? <a href={% url 'accounts:login' %} class="text-decoration-none">Log in</a>
                     </p>
                 </div>
             </div>
@@ -179,12 +180,6 @@
                 if (!form.checkValidity() || password.value !== confirmPassword.value) {
                     event.preventDefault();
                     event.stopPropagation();
-                } else {
-                    // Handle successful form submission here
-                    // For demo, we just log it. In a real app, you'd send data to a server.
-                    event.preventDefault(); // Prevent actual submission for this demo
-                    alert('Registration successful!');
-                    console.log('Form submitted successfully');
                 }
             }, false);
 

@@ -18,7 +18,7 @@ class Enquiry(models.Model):
     enq_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     email = models.EmailField()
-    phone = models.IntegerField(max_length=10)
+    phone = models.IntegerField()
     query = models.CharField(max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
 
