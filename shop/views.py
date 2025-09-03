@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
-from shop.models import Product
-from shop.models import Enquiry
+from shop.models import Product, Enquiry, Cart, CartItem
 # Create your views here.
 
 
@@ -46,3 +45,41 @@ def cart(request):
 
 def ckeckout(request):
     return render(request, 'shop/checkout.html')
+
+
+def get_user_cart(user):
+    cart, exists = Cart.objects.get_or_create(user=user)
+    return cart
+
+
+def add_to_cart(request, id):
+    product = Product.objects.get(product_id=id)
+    cart = get_user_cart(request.user)
+
+    if CartItem.objects.filter(cart=cart, product_id=id).exists():
+        cart_item = CartItem.objects.get(cart=cart, product_id=id)
+        cart_item.quantity += 1
+        cart_item.save()
+    else:
+        CartItem.objects.create(cart=cart, product=product)
+
+    return render(request, 'shop/productview.html', {"product": product})
+        
+
+def remove_from_cart(request, id):
+    cart = get_user_cart(request.user)
+    cart_item = CartItem.objects.get(cart=cart, product_id=id)
+    context = {"items":{}}
+    cart_item.quantity -= 1
+    if cart_item.quantity <= 0:
+        cart_item.delete()
+    else:
+        cart_item.save()
+    context["items"] = CartItem.objects.filter(cart=cart)
+    return render(request, 'shop/cartView.html', context)
+
+
+def cart_details(request):
+    cart = get_user_cart(request.user)
+    item_list = CartItem.objects.filter(cart=cart)
+    return render(request, "shop/cartView.html", {"items": item_list})

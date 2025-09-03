@@ -64,6 +64,7 @@
               <button class="btn btn-outline-success" type="submit">
                 Search
               </button>
+              <a href="{% url "shop:loadcart" %}" class="btn btn-outline-success">cart</a>
               <a href="{% url "accounts:logout" %}" class="btn btn-outline-success">Logout</a>
             </form>
             {% else %}
