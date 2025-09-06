@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from shop.models import Product, Enquiry, Cart, CartItem
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -28,6 +29,7 @@ def contact(request):
         return redirect('shop:contact')
     return render(request, 'shop/contact.html')
 
+@login_required(login_url="accounts:login")
 def tracker(request):
     return render(request, 'shop/tracker.html')
 
@@ -39,19 +41,26 @@ def product_view(request, id):
     product = Product.objects.get(product_id=id)
     return render(request, 'shop/productview.html', {"product": product})
 
+@login_required(login_url="accounts:login")
 def cart(request):
     return render(request, 'shop/cartView.html')
 
-
+@login_required(login_url="accounts:login")
 def ckeckout(request):
-    return render(request, 'shop/checkout.html')
+    cart = get_user_cart(request.user)
+    item_list = CartItem.objects.filter(cart=cart)
+    no_items = len(item_list)
+    cart_cost = 0
+    for item in item_list:
+        cart_cost += item.quantity * item.product.price
+    return render(request, 'shop/checkout.html', {"items": item_list, "no_of_items": no_items, "cost": cart_cost})
 
 
 def get_user_cart(user):
     cart, exists = Cart.objects.get_or_create(user=user)
     return cart
 
-
+@login_required(login_url="accounts:login")
 def add_to_cart(request, id):
     product = Product.objects.get(product_id=id)
     cart = get_user_cart(request.user)
@@ -65,7 +74,7 @@ def add_to_cart(request, id):
 
     return render(request, 'shop/productview.html', {"product": product})
         
-
+@login_required(login_url="accounts:login")
 def remove_from_cart(request, id):
     cart = get_user_cart(request.user)
     cart_item = CartItem.objects.get(cart=cart, product_id=id)
@@ -78,7 +87,7 @@ def remove_from_cart(request, id):
     context["items"] = CartItem.objects.filter(cart=cart)
     return render(request, 'shop/cartView.html', context)
 
-
+@login_required(login_url="accounts:login")
 def cart_details(request):
     cart = get_user_cart(request.user)
     item_list = CartItem.objects.filter(cart=cart)

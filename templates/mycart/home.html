@@ -1,48 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
-      }
+        /* Basic CSS Reset and Font Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      html,
-      body {
-        height: 100%;
-        width: 100%;
-      }
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+        }
 
-      #container {
-        height: 100%;
-        width: 100%;
-        background-color: black;
-      }
-      #card{
-        height: 15%;
-        width: 30%;
-        background-color: white;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 30px;
-        padding-left: 100px;
-        padding-top: 25px;
-        border-radius: 50%;
-      }
+        /* Hero Section Styling */
+        .hero-section {
+            /* Sizing and Alignment */
+            min-height: 95vh; /* Takes up most of the viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            
+            /* Background Image and Overlay */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Creates a parallax-like effect */
+            
+            /* Content Styling */
+            color: #ffffff;
+            padding: 0 20px; /* Padding for smaller screens */
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        /* Typography */
+        .hero-content h1 {
+            /* Using clamp() for fluid font size that responds to viewport width */
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 0.5em;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2em;
+            font-weight: 400;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Button Container */
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem; /* Space between buttons */
+            flex-wrap: wrap; /* Allows buttons to stack on small screens */
+        }
+
+        /* Shared Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px; /* Pill-shaped buttons */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent; /* Prevents layout shift on hover */
+            cursor: pointer;
+        }
+
+        /* Primary Button Style ("Go to Shop") */
+        .btn-primary {
+            background-color: #0d6efd; /* A modern blue */
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-3px); /* Lifts the button slightly */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Secondary Button Style ("Go to Blogs") */
+        .btn-secondary {
+            background-color: transparent;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #ffffff;
+            color: #333333; /* Dark text on white background */
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
     </style>
-  </head>
-  <body>
-    <div id="container">
-      <div id="card">
-        <h3><a href="{% url 'shop:index' %}">Visit shop</a></h3>
-      </div>
-    </div>
-  </body>
+</head>
+<body>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Discover Your Style</h1>
+            <p>Explore our curated collection of products and get inspired by our latest articles.</p>
+            <div class="hero-buttons">
+                <a href="{% url "shop:index" %}" class="btn btn-primary">Go to Shop</a>
+                <a href="{% url "blog:index" %}" class="btn btn-secondary">Go to Blogs</a>
+            </div>
+        </div>
+    </section>
+
+</body>
 </html>
