@@ -42,3 +42,38 @@ class CartItem(models.Model):
 
     def __str__(self):
         return self.cart.user.username
+    
+
+class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    STATUS_CHOICES = [
+        ("accepted", "Accepted"),
+        ("packed", "Packed"),
+        ("shipped", "Shipped"),
+        ("out_for_delivery", "Out for Delivery"),
+        ("delivered", "Delivered"),
+    ]
+    order_status = models.CharField(choices=STATUS_CHOICES, default="accepted")
+    order_time_stamp = models.DateTimeField(auto_now_add=True)
+    payment_status = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.user.username
+
+
+class UserAddress(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    name = models.TextField()
+    address_1 = models.TextField()
+    address_2 = models.TextField()
+    country = models.CharField(max_length=20)
+    state = models.CharField(max_length=30)
+    zip_code = models.CharField(max_length=6)
+
+    def __str__(self):
+        return self.user.username
+    
+
+    

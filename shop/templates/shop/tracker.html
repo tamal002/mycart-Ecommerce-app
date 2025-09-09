@@ -1,4 +1,99 @@
-{% extends 'shop/base.html' %}
+{% extends "shop/base.html" %}
 
-{% block title %}tracker page{% endblock %}
-{% block content%} this is tracker page {% endblock %}
+{% block title %}Your Orders{% endblock %}
+
+{% block style_sheet %}
+<style>
+  /* Use the same light gray background for consistency */
+  body {
+    background-color: #f8f9fa;
+  }
+
+  /* Main card for each ordered item */
+  .order-item-card {
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  
+  .order-item-card:hover {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  }
+
+  /* Style for the product image */
+  .order-product-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 0.375rem;
+  }
+
+  /* Media query for smaller screens */
+  @media (max-width: 576px) {
+    .order-product-img {
+        width: 80px;
+        height: 80px;
+    }
+    .order-item-card .card-body {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    .order-product-img {
+        margin-bottom: 1rem;
+    }
+    .cancel-btn-container {
+        width: 100%;
+        margin-top: 1rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="mb-4">
+    <h2>Your Orders</h2>
+  </div>
+
+  <!-- Vertical list of static ordered items -->
+  <div class="d-flex flex-column gap-3">
+
+    <!-- Example Item 1: Confirmed (Cancel button is visible) -->
+    {% for item in orders %}
+      <div class="card order-item-card">
+      <div class="card-body d-flex align-items-center gap-4">
+        <!-- Product Image -->
+        <img src="{{ item.product.image.url }}" alt="Product Image" class="order-product-img">
+        
+        <!-- Product Details -->
+        <div class="flex-grow-1">
+          <h5 class="card-title mb-2">{{item.product.product_name}}  Qt. {{item.quantity}}</h5>
+          <p class="mb-1">
+            <strong>Status:</strong> 
+            <span class="badge bg-info">{{item.order_status}}</span>
+          </p>
+          <p class="mb-1">
+            <strong>Payment:</strong> 
+            <span class="badge bg-success">{{item.payment_status}}</span>
+          </p>
+          <p class="text-muted mb-0 small">
+            Ordered on: {{item.order_time_stamp}}
+          </p>
+        </div>
+
+        <!-- Cancel Button Container -->
+        <div class="cancel-btn-container">
+          {% if item.order_status != "delivered" %}
+          <a href="{% url "shop:cancelorder" item.id %}" class="btn btn-outline-danger">Cancel Order</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <h3>No orderds to show.</h3>
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from shop.models import Product, Enquiry, Cart, CartItem
+from shop.models import Product, Enquiry, Cart, CartItem, UserAddress, Order
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -31,7 +31,40 @@ def contact(request):
 
 @login_required(login_url="accounts:login")
 def tracker(request):
-    return render(request, 'shop/tracker.html')
+    # first time after placing order
+    if(request.method == "POST"):
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        name = first_name + last_name
+        address_1 = request.POST.get("address_1")
+        address_2 = request.POST.get("address_2")
+        country = request.POST.get("country")
+        state = request.POST.get("state")
+        zip_code = request.POST.get("zip")
+        payment_method = request.POST.get("payment_method")
+        if UserAddress.objects.filter(user=request.user).exists():
+            pass
+        else:
+            UserAddress.objects.create(user=request.user, name=name, address_1=address_1, address_2=address_2, country=country, state=state, zip_code=zip_code)
+        
+        # strore the order details at database
+        user_cart = get_user_cart(request.user)
+        cart_items = CartItem.objects.filter(cart=user_cart)
+        for item in cart_items:
+            Order.objects.create(user=request.user, product=item.product, payment_status=payment_method, quantity=item.quantity)
+            item.delete()
+        
+    orders = Order.objects.filter(user=request.user).order_by("-order_time_stamp")
+    
+    
+    return render(request, 'shop/tracker.html', {"orders": orders})
+
+@login_required(login_url="accounts:login")
+def cancel_order(request, id):
+    item = Order.objects.get(id=id)
+    item.delete()
+    return redirect("shop:tracker")
+
 
 def search(request):
     return render(request, 'shop/search.html')
