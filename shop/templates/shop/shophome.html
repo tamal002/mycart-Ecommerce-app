@@ -1,185 +1,186 @@
 {% extends 'shop/base.html' %} 
-
 {% load static %} 
 
-# title block
-{% block title %}Shop | Home{%endblock %} 
+{% block title %}Shop | Home{% endblock %} 
 
-
-# style sheet block
 {% block style_sheet %}
-
-
+<!-- Swiper.js CSS for the carousels -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
-<link rel="stylesheet" href="{% static 'shop/css/shophomestyle.css'%}" />
 
 <style>
-
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-  } 
-
-  html,
+  /* Use the same consistent background as other pages */
   body {
-    height:100%;
-    width: 100%;
+    background-color: #f8f9fa;
   }
 
-  #main {
-    height: auto;
-    width: 100%;
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  /* Styling for the category headings */
+  .category-header {
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #dee2e6;
   }
-
-  .row-slider {
-    width: 90%;
-    margin: 30px auto;
-    height: 260px;
-    /* background: #f9f9f9; */
-    padding: 10px;
-    box-sizing: border-box;
+  
+  /* The main container for each slider row */
+  .product-slider-container {
+    padding: 1rem 0;
     position: relative;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
   }
 
-  .row-slider .swiper-slide {
-    width: 180px;
-    height: 180px;
-    background: #ccc;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  .swiper-slide{
-    height: 180px;
-    width: 180px;
+  /* Custom styling for the product cards inside the slider */
+  .swiper-slide .card {
+    height: 100%; /* Ensures all cards in a row are the same height */
     display: flex;
     flex-direction: column;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   }
 
-  .btns{
-    display: flex;
-    min-height: 10%;
-    margin-bottom: -50px;
-    padding: 10px 10px 10px 10px;
-    gap: 2px;
+  .swiper-slide .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   }
 
-  .swiper-button-prev{
-    margin-left: -15x;
-    cursor: pointer;
-  }
-
-  .swiper-button-next{
-    margin-right: -10px;
-    cursor: pointer;
-  }
-
-  .swiper-wrapper  .btns button{
-    background-color: rgb(40, 40, 231);
-    color: white;
-    border: 1px blue;
-    border-radius: 8px;
-    padding: 5px 2px;
-    margin-bottom: -25px;
-  }
-
-  .swiper-wrapper  .btns button:hover{
-    cursor: pointer;
-    background-color: rgb(13, 13, 67);
-  }
-
-
-  .category{
-    display: block;
-    height: 40px;
-    width: 89%;
-    background-color: rgb(61, 122, 235);
-    color: white;
-    border-radius: 5px;
-    margin-left: 70px;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+  .card-img-top {
+    width: 100%;
+    height: 180px; /* Fixed height for all images */
+    object-fit: cover; /* Ensures images cover the area without distortion */
   }
   
-  .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;  /* or contain, depending on your need */
-    border-radius: 10px; /* optional: matches slider's rounded corners */
+  .card-body {
+    flex-grow: 1; /* Allows the card body to fill available space */
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
 
-}
+  .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #212529;
+  }
+
+  .card-text {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #343a40;
+      margin-top: auto; /* Pushes price to the bottom */
+      margin-bottom: 1rem;
+  }
+
+  .card .btn {
+      font-size: 0.875rem;
+  }
+
+  /* Customizing Swiper navigation buttons */
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: #007bff; /* A more modern blue */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .swiper-button-next:after,
+  .swiper-button-prev:after {
+      font-size: 1.25rem;
+      font-weight: bold;
+  }
 
 </style>
-
 {% endblock %} 
 
-
-
-# content block
 {% block content%}
-  
+<div class="container my-4">
+  {% for category, product_list in category_list.items %}
+    <div class="mb-5">
+      <h2 class="category-header">{{ category }}</h2>
+      <div class="swiper product-slider-container">
+        <div class="swiper-wrapper">
+          
+          {% for product in product_list %}
+            <div class="swiper-slide">
+              <div class="card">
+                <a href="{% url 'shop:product_view' product.product_id %}">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.product_name }}">
+                </a>
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.product_name }}</h5>
+                  <p class="card-text">Rs. {{ product.price }}</p>
+                  <div class="d-grid gap-2">
+                    <!-- Changed button to an anchor tag -->
+                    <a href="{% url "shop:addtocart" product.product_id %}" class="btn btn-primary" role="button">Add to Cart</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
 
-  {% for category, list in category_list.items %}
-    <h6 class="category">{{category}}</h6>
-    <div class="swiper row-slider">
-      <div class="swiper-wrapper">
-        {% for product in list %}
-          <div class="swiper-slide"><img src="{{product.image.url}}" alt="product-image"> <br> <span class="btns"><button id="{{product.product_id}}" class="add-cart">add cart</button> <button><a href="{% url 'shop:product_view' product.product_id %}">view product</a></button></span></div>
-        {% endfor %}
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+    </div>
+  {% empty %}
+    <div class="text-center py-5">
+        <h3>No Products Found</h3>
+        <p class="lead">Please check back later, we are updating our store.</p>
     </div>
   {% endfor %}
-
+</div>
 {% endblock %}
 
+{% block js %}
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize a Swiper instance for each slider on the page
+    document.querySelectorAll('.product-slider-container').forEach(slider => {
+        new Swiper(slider, {
+            // How many slides to show at once
+            slidesPerView: 1, 
+            spaceBetween: 20,
+            loop: true,
+            // Navigation arrows
+            navigation: {
+                nextEl: slider.querySelector('.swiper-button-next'),
+                prevEl: slider.querySelector('.swiper-button-prev'),
+            },
+            // Responsive breakpoints
+            breakpoints: {
+                // when window width is >= 576px
+                576: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                // when window width is >= 768px
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                // when window width is >= 992px
+                992: {
+                    slidesPerView: 4,
+                    spaceBetween: 30
+                },
+                // when window width is >= 1200px
+                1200: {
+                    slidesPerView: 5,
+                    spaceBetween: 30
+                }
+            }
+        });
+    });
 
-  # js block
-  {% block js %}
-
-  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-  <script>
-    document.querySelectorAll('.row-slider').forEach((slider, index) => {
-  new Swiper(slider, {
-    slidesPerView: 5,
-    spaceBetween: 40,
-    loop: true,
-    navigation: {
-      nextEl: slider.querySelector('.swiper-button-next'),
-      prevEl: slider.querySelector('.swiper-button-prev'),
-    }
-  });
 });
-  </script>
-  <script>
+</script>
+{% endblock %}
 
-    if(localStorage.getItem("cart") === null){
-      let items = {}
-      localStorage.setItem("cart", JSON.stringify(items))
-    }
-    $('.add-cart').on("click", (event) => {
-      let clicked_on = event.target.id;
-      let items = JSON.parse(localStorage.getItem("cart"))
-      if(items[clicked_on] === undefined) items[clicked_on] = 1;
-      else items[clicked_on] += 1
-      localStorage.setItem("cart", JSON.stringify(items))
-});
-    
-  </script>
-
-  {% endblock %}

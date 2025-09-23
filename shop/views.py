@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 def index(request):
     products = Product.objects.all()
-    categories = {};
+    categories = {}
     for product in products:
         if product.category not in categories:
             categories[product.category] = []
@@ -104,21 +104,19 @@ def add_to_cart(request, id):
         cart_item.save()
     else:
         CartItem.objects.create(cart=cart, product=product)
-
-    return render(request, 'shop/productview.html', {"product": product})
+    
+    return redirect("shop:product_view", id=product.product_id)
         
 @login_required(login_url="accounts:login")
 def remove_from_cart(request, id):
     cart = get_user_cart(request.user)
     cart_item = CartItem.objects.get(cart=cart, product_id=id)
-    context = {"items":{}}
     cart_item.quantity -= 1
     if cart_item.quantity <= 0:
         cart_item.delete()
     else:
         cart_item.save()
-    context["items"] = CartItem.objects.filter(cart=cart)
-    return render(request, 'shop/cartView.html', context)
+    return redirect("shop:loadcart")
 
 @login_required(login_url="accounts:login")
 def cart_details(request):
